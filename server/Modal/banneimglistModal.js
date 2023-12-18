@@ -4,8 +4,8 @@ mongoose.connect("mongodb://127.0.0.1:27017/Camera");
 
 const bannerImageSchema = mongoose.Schema(
   {
-    Image: {
-      type: String,
+    ImageList: {
+      type: [],
       required: true,
     },
     createAt:{
