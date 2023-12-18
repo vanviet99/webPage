@@ -16,10 +16,10 @@ const middlewreController = {
                 }
             });
         } else {
-            res.status(401).json({ message: "Mã token bị sai" });
+            res.status(401).json({ message: "hết hạn đăng nhập" });
         }
     } else {
-        res.status(401).json({ message: "Mã token bị sai" });
+        res.status(401).json({ message: "hết hạn đăng nhập" });
     }
 },
 

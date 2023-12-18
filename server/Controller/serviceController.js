@@ -61,15 +61,28 @@ const serviceController = {
   getAllservice: async (req, res) => {
     const { page, size, TopicId } = req.body;
 
-   let pages = page ? page : 1;
-   let  sizes = size ? size :  10;
+    let pages = page ? page : 1;
+    let sizes = size ? size : 10;
 
     try {
-      const getService = await serviceModal
-        .find(TopicId ? { TopicId: TopicId, LanguageOption: req.params.LanguageOption } : {LanguageOption: req.params.LanguageOption})
+      let topiclist = await topicModal.find();
+      let getService = await serviceModal
+        .find(
+          TopicId
+            ? { TopicId: TopicId, LanguageOption: req.params.LanguageOption }
+            : { LanguageOption: req.params.LanguageOption }
+        )
         .skip((pages - 1) * sizes)
         .limit(sizes);
-      res.status(200).json({ message: "Thành công", data: getService });
+      let data = getService.map((value) => {
+        let newvalue = {
+          ...value.toObject(),
+          topicName: topiclist.find((item) => item._id == value.TopicId)?.Name,
+        };
+        return newvalue;
+      });
+
+      res.status(200).json({ message: "Thành công", data: data });
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
