@@ -2,7 +2,7 @@ const blogModal = require("../Modal/blogModal");
 
 const blogController = {
   addblog: async (req, res) => {
-    const { Image, Title, TopicId, Description, BlogItems, LanguageOption } =
+    const { Image, Title, TopicId, Description, BlogItems, LanguageOption , StatusBub } =
       req.body;
     try {
       const newService = await blogModal.create({
@@ -12,6 +12,7 @@ const blogController = {
         Description,
         BlogItems,
         LanguageOption,
+        StatusBub
       });
       res.status(200).json({ message: "Thêm thành công", data: newService });
     } catch (error) {
@@ -32,6 +33,7 @@ const blogController = {
             Description,
             BlogItems,
             LanguageOption,
+            StatusBub
         }
       );
       res
@@ -54,20 +56,20 @@ const blogController = {
   },
 
   getblog: async (req, res) => {
-    const { page, size, TopicId } = req.body;
+    const { page, size, TopicId , StatusBub } = req.body;
 
     let pages = page ? page : 1;
     let sizes = size ? size : 10;
 
     try {
       const getblog = await blogModal
-        .find(
-          TopicId
-            ? { TopicId: TopicId, LanguageOption: req.params.LanguageOption }
-            : { LanguageOption: req.params.LanguageOption }
-        )
-        .skip((pages - 1) * sizes)
-        .limit(sizes);
+      .find({
+        ...(TopicId && { TopicId }),
+        ...(StatusBub && { StatusBub }),
+        LanguageOption: req.params.LanguageOption,
+      })
+      .skip((pages - 1) * sizes)
+      .limit(sizes);
       res.status(200).json({ message: "Thành công", data: getblog });
     } catch (error) {
       res.status(500).json({ message: error.message });
