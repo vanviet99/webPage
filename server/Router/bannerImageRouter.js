@@ -3,10 +3,10 @@ const router = express.Router();
 const middlewreController = require('../Controller/middlewreController')
 const bannerimglist =require('../Controller/bannerimglistModal')
 
-router.post('/addbannerImage',  middlewreController.verifyAdmin,  bannerimglist.addbannerImage);
-router.patch('/putbannerImage', middlewreController.verifyAdmin, bannerimglist.putbannerImage);
+router.post('/addbannerImage',  middlewreController.verifyTokenAndAdmin,  bannerimglist.addbannerImage);
+router.patch('/putbannerImage', middlewreController.verifyTokenAndAdmin, bannerimglist.putbannerImage);
 router.post('/getAllbannerImage', bannerimglist.getAllbannerImage);
-router.delete('/delAllbannerImage',  middlewreController.verifyAdmin, bannerimglist.delAllbannerImage);
+router.delete('/delAllbannerImage', middlewreController.verifyTokenAndAdmin, bannerimglist.delAllbannerImage);
 
 
 module.exports = router;
