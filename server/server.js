@@ -40,8 +40,8 @@ app.use('/api/v1/service', serviceRouter);
 app.use('/api/v1/blog', blogRouter);
 app.use('/api/v1/customer', customerRouter);
 app.use('/api/v1/homecontentRouter', homecontentRouter);
-app.use('/api/v1/contactRouter', contactRouter);
-app.use('/api/v1/bannerImageRouter', bannerImageRouter);
+app.use('/api/v1/contact', contactRouter);
+app.use('/api/v1/bannerImage', bannerImageRouter);
 
 
 
