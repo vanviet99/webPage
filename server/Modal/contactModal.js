@@ -2,9 +2,9 @@ const mongoose = require("mongoose");
 
 mongoose.connect("mongodb://127.0.0.1:27017/Camera");
 
-const blogSchema = mongoose.Schema(
+const contactSchema = mongoose.Schema(
   {
-    Image: {
+    ImageIcon: {
       type: String,
       required: true,
     },
@@ -12,20 +12,12 @@ const blogSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    TopicId: {
+    Address: {
       type: String,
       required: true,
     },
-    Description: {
+    TimeAddress: {
       type: String,
-      required: true,
-    },
-    BlogItems: {
-      type: String,
-      required: true,
-    },
-    StatusBub: {
-      type: Number,
       required: true,
     },
     LanguageOption: {
@@ -33,9 +25,9 @@ const blogSchema = mongoose.Schema(
       required: true,
     },
   },
-  { collection: " blog" }
+  { collection: " contact" }
 );
 
-const blogModal = mongoose.model(" blog", blogSchema);
+const contactModal = mongoose.model(" contact", contactSchema);
 
-module.exports = blogModal;
+module.exports = contactModal;
