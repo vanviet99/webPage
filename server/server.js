@@ -18,6 +18,9 @@ const customerRouter = require('./Router/customerRouter');
 const homecontentRouter = require('./Router/homecontentRouter');
 const contactRouter = require('./Router/contactRouter');
 const bannerImageRouter = require('./Router/bannerImageRouter');
+const contactfromCustomerRouter = require('./Router/contactfromCustomerRouter');
+const homecontentimageRouter = require('./Router/homecontentimageRouter');
+
 
 
 const app = express();
@@ -42,6 +45,9 @@ app.use('/api/v1/customer', customerRouter);
 app.use('/api/v1/homecontentRouter', homecontentRouter);
 app.use('/api/v1/contact', contactRouter);
 app.use('/api/v1/bannerImage', bannerImageRouter);
+app.use('/api/v1/contactfromCustomer', contactfromCustomerRouter);
+app.use('/api/v1/homecontentimage', homecontentimageRouter);
+
 
 
 
