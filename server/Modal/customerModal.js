@@ -4,14 +4,10 @@ mongoose.connect("mongodb://127.0.0.1:27017/Camera");
 
 const customerSchema = mongoose.Schema(
   {
-    FullName: {
+    Image: {
       type: String,
       required: true,
-    },
-    LanguageOption: {
-        type: String,
-        required: true,
-      },
+    }
   },
   { collection: " customer" }
 );

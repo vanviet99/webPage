@@ -2,12 +2,11 @@ const customerModal = require("../Modal/customerModal");
 
 const customerController = {
   addCustomer: async (req, res) => {
-    const { FullName,LanguageOption } =
+    const { Image } =
       req.body;
     try {
       const addCustomer = await customerModal.create({
-        FullName,
-        LanguageOption,
+        Image
       });
       res.status(200).json({ message: "Thêm thành công", data: addCustomer });
     } catch (error) {
@@ -16,12 +15,11 @@ const customerController = {
   },
 
   patchCustomer: async (req, res) => {
-    const { FullName,LanguageOption , customerId} =
+    const { Image , customerId} =
       req.body;
     try {
       const updateCustomer = await customerModal.updateOne( {_id: customerId} , {
-        FullName,
-        LanguageOption,
+        Image
       });
       res.status(200).json({ message: "Cập nhật thành công", data: updateCustomer });
     } catch (error) {
@@ -40,7 +38,7 @@ const customerController = {
 
   getCustomer: async (req, res) => {
     try {
-      const dataCustomer = await customerModal.find( { LanguageOption: req.params.LanguageOption} );
+      const dataCustomer = await customerModal.find( );
       res.status(200).json({ message: "hành công", data: dataCustomer });
     } catch (error) {
       res.status(500).json({ message: error.message });

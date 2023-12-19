@@ -20,9 +20,9 @@ const homecontentController = {
   },
 
   puthomecontent: async (req, res) => {
-    const { BannerTitle, BannerImageShow , BannerDescription , LanguageOption } = req.body;
+    const { BannerTitle, BannerImageShow , BannerDescription , LanguageOption , BannerID } = req.body;
     try {
-      const updating = await homecontentModal.updateOne({
+      const updating = await homecontentModal.updateOne( {_id: BannerID}, {
         BannerTitle,
         BannerImageShow,
         BannerDescription,
@@ -43,10 +43,32 @@ const homecontentController = {
   },
   gethomecontent: async(req, res) =>{
     try {
-      let data = await homecontentModal.findOne({LanguageOption: req.params.LanguageOption})
+      let data = await homecontentModal.find({LanguageOption: req.params.LanguageOption})
       res
       .status(200)
       .json({ message: "Tthành công", data: data });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  },
+
+  delhomecontent: async(req, res) =>{
+    try {
+      let data = await homecontentModal.deleteOne({_id: req.params.BannerID})
+      res
+      .status(200)
+      .json({ message: " Xóa Thành công", data: data });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  },
+
+  gethomecontentbuyid: async(req, res) =>{
+    try {
+      let data = await homecontentModal.findOne({_id: req.params.BannerID})
+      res
+      .status(200)
+      .json({ message: "Thành công", data: data });
     } catch (error) {
       res.status(500).json({ message: error.message });
     }

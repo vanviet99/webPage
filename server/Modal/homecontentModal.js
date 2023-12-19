@@ -13,7 +13,7 @@ const homecontentSchema = mongoose.Schema(
       required: true,
     },
     BannerImageShow: {
-      type: [],
+      type: String,
       required: true,
     },
     LanguageOption: {
