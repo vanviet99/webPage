@@ -1,13 +1,11 @@
-const homecontentModal = require("../Modal/homecontentModal");
+const homecontentImageModal = require("../Modal/homecontentImageModal");
 
-const homecontentController = {
-  addhomecontent: async (req, res) => {
-    const { BannerTitle, BannerImageShow , BannerDescription , LanguageOption } = req.body;
+const homecontentImageController = {
+  addhomecontentImage: async (req, res) => {
+    const { Bannerimage , LanguageOption } = req.body;
     try {
-      const newhomecontent = await homecontentModal.create({
-        BannerTitle,
-        BannerImageShow,
-        BannerDescription,
+      const newhomecontent = await homecontentImageModal.create({
+        Bannerimage,
         LanguageOption
       });
 
@@ -19,18 +17,16 @@ const homecontentController = {
     }
   },
 
-  puthomecontent: async (req, res) => {
-    const { BannerTitle, BannerImageShow , BannerDescription , LanguageOption , BannerID } = req.body;
+  puthomecontentImage: async (req, res) => {
+    const {Bannerimage , LanguageOption, BannerID } = req.body;
     try {
-      const updating = await homecontentModal.updateOne( {_id: BannerID}, {
-        BannerTitle,
-        BannerImageShow,
-        BannerDescription,
+      const updating = await homecontentImageModal.updateOne( {_id: BannerID}, {
+        Bannerimage,
         LanguageOption
       });
 
       if (updating) {
-        const homecontent = await homecontentModal.findOne({});
+        const homecontent = await homecontentImageModal.findOne({});
         res
           .status(200)
           .json({ message: "Cập nhật thành công", data: homecontent });
@@ -41,9 +37,9 @@ const homecontentController = {
       res.status(500).json({ message: error.message });
     }
   },
-  gethomecontent: async(req, res) =>{
+  gethomecontentImage: async(req, res) =>{
     try {
-      let data = await homecontentModal.find({LanguageOption: req.params.LanguageOption})
+      let data = await homecontentImageModal.find({LanguageOption: req.params.LanguageOption})
       res
       .status(200)
       .json({ message: "Tthành công", data: data });
@@ -52,9 +48,9 @@ const homecontentController = {
     }
   },
 
-  delhomecontent: async(req, res) =>{
+  delhomecontentImage: async(req, res) =>{
     try {
-      let data = await homecontentModal.deleteOne({_id: req.params.BannerID})
+      let data = await homecontentImageModal.deleteOne({_id: req.params.BannerID})
       res
       .status(200)
       .json({ message: " Xóa Thành công", data: data });
@@ -63,9 +59,9 @@ const homecontentController = {
     }
   },
 
-  gethomecontentbuyid: async(req, res) =>{
+  gethomecontentImagetbuyid: async(req, res) =>{
     try {
-      let data = await homecontentModal.findOne({_id: req.params.BannerID})
+      let data = await homecontentImageModal.findOne({_id: req.params.BannerID})
       res
       .status(200)
       .json({ message: "Thành công", data: data });
@@ -75,4 +71,4 @@ const homecontentController = {
   }
 };
 
-module.exports = homecontentController;
+module.exports = homecontentImageController;
