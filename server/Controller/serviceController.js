@@ -83,7 +83,14 @@ const serviceController = {
         return newvalue;
       });
 
-      res.status(200).json({ message: "Thành công", data: data });
+
+      const Count =  await serviceModal
+      .find(
+        TopicId
+          ? { TopicId: TopicId, LanguageOption: req.params.LanguageOption }
+          : { LanguageOption: req.params.LanguageOption }
+      ).count()
+      res.status(200).json({ message: "Thành công", data: data , Count:Count });
     } catch (error) {
       res.status(500).json({ message: error.message });
     }

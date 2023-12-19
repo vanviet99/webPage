@@ -70,7 +70,14 @@ const blogController = {
       })
       .skip((pages - 1) * sizes)
       .limit(sizes);
-      res.status(200).json({ message: "Thành công", data: getblog });
+
+      const Count =  await blogModal
+      .find({
+        ...(TopicId && { TopicId }),
+        ...(StatusBub && { StatusBub }),
+        LanguageOption: req.params.LanguageOption,
+      }).count()
+      res.status(200).json({ message: "Thành công", data: getblog, Count: Count });
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
