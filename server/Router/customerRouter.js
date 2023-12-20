@@ -6,6 +6,6 @@ const customer =require('../Controller/customerController')
 router.post('/addCustomer', middlewreController.verifyTokenAndAdmin, customer.addCustomer);
 router.patch('/patchCustomer', middlewreController.verifyTokenAndAdmin, customer.patchCustomer);
 router.delete('/delCustomer/:customerId', middlewreController.verifyTokenAndAdmin, customer.delCustomer);
-router.get('/getCustomer/:LanguageOption', customer.getCustomer);
+router.get('/getCustomer', customer.getCustomer);
 
 module.exports = router;
