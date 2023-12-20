@@ -20,6 +20,10 @@ const staffSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    KeyIndex: {
+      type: String,
+      required: true,
+    },
     LanguageOption: {
         type: String,
         required: true,

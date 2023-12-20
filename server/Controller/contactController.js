@@ -1,13 +1,13 @@
 const contactModal = require("../Modal/contactModal");
 const ObjectId = require('mongoose').Types.ObjectId;
+const HandleAddKeyindex   = require("../../ulits/randomKey");
 
 const contactController = {
   addcontact: async (req, res) => {
-    const { ImageIcon, Title, Address, TimeAddress , LanguageOption } = req.body;
     try {
-      const newContact= await contactModal.create({
-        ImageIcon, Title, Address, TimeAddress , LanguageOption
-      });
+      const newContact = await contactModal.insertMany(
+        HandleAddKeyindex(req.body)
+      );
       res.status(200).json({ message: "Thêm thành công", data: newContact });
     } catch (error) {
       res.status(500).json({ message: error.message });
@@ -31,8 +31,8 @@ const contactController = {
 
   delcontact: async (req, res) => {
     try {
-      const Contact = await contactModal.deleteOne(
-        { _id: req.params.contactId },
+      const Contact = await contactModal.deleteMany(
+        { KeyIndex: req.params.contactId },
       );
       res.status(200).json({ message: " Xóa thành công", data: Contact });
     } catch (error) {
