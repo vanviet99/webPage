@@ -1,15 +1,12 @@
 const homecontentModal = require("../Modal/homecontentModal");
+const HandleAddKeyindex   = require("../../ulits/randomKey");
 
 const homecontentController = {
   addhomecontent: async (req, res) => {
-    const { BannerTitle, BannerImageShow , BannerDescription , LanguageOption } = req.body;
     try {
-      const newhomecontent = await homecontentModal.create({
-        BannerTitle,
-        BannerImageShow,
-        BannerDescription,
-        LanguageOption
-      });
+      const newhomecontent = await homecontentModal.insertMany(
+        HandleAddKeyindex(req.body)
+      );
 
       res
         .status(200)
@@ -54,7 +51,7 @@ const homecontentController = {
 
   delhomecontent: async(req, res) =>{
     try {
-      let data = await homecontentModal.deleteOne({_id: req.params.BannerID})
+      let data = await homecontentModal.deleteMany({KeyIndex: req.params.BannerID})
       res
       .status(200)
       .json({ message: " Xóa Thành công", data: data });

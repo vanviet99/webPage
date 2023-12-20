@@ -1,17 +1,13 @@
 const staffModal = require("../Modal/staffModal");
 const ObjectId = require('mongoose').Types.ObjectId;
+const HandleAddKeyindex   = require("../../ulits/randomKey");
 
 const staffController = {
   addstaff: async (req, res) => {
-    const { Image, FullName, Role, Description , LanguageOption } = req.body;
     try {
-      const newStaff = await staffModal.create({
-        Image,
-        FullName,
-        Role,
-        Description,
-        LanguageOption
-      });
+      const newStaff = await staffModal.insertMany(
+        HandleAddKeyindex(req.body)
+      );
       res.status(200).json({ message: "Thêm thành công", data: newStaff });
     } catch (error) {
       res.status(500).json({ message: error.message });
@@ -41,8 +37,8 @@ const staffController = {
 
   delstaff: async (req, res) => {
     try {
-      const Staff = await staffModal.deleteOne(
-        { _id: req.params.staffId },
+      const Staff = await staffModal.deleteMany(
+        { KeyIndex: req.params.staffId },
       );
       res.status(200).json({ message: " Xóa thành công", data: Staff });
     } catch (error) {

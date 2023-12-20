@@ -1,19 +1,13 @@
 const serviceModal = require("../Modal/serviceModal");
 const topicModal = require("../Modal/topicModal");
+const HandleAddKeyindex   = require("../../ulits/randomKey");
 
 const serviceController = {
   addservice: async (req, res) => {
-    const { Image, ServiceName, TopicId, Description, LanguageOption } =
-      req.body;
-      console.log(req.body);
     try {
-      const newService = await serviceModal.create({
-        Image,
-        ServiceName,
-        TopicId,
-        Description,
-        LanguageOption,
-      });
+      const newService = await serviceModal.insertMany(
+        HandleAddKeyindex(req.body)
+      );
       res.status(200).json({ message: "Thêm thành công", data: newService });
     } catch (error) {
       res.status(500).json({ message: error.message });
@@ -50,8 +44,8 @@ const serviceController = {
 
   delservice: async (req, res) => {
     try {
-      const delService = await serviceModal.deleteOne({
-        _id: req.params.ServiceId,
+      const delService = await serviceModal.deleteMany({
+        KeyIndex: req.params.ServiceId,
       });
       res.status(200).json({ message: "Xóa thành công", data: delService });
     } catch (error) {
@@ -78,7 +72,7 @@ const serviceController = {
       let data = getService.map((value) => {
         let newvalue = {
           ...value.toObject(),
-          topicName: topiclist.find((item) => item._id == value.TopicId)?.Name,
+          TopicId: topiclist.find((item) => item._id == value.TopicId)?.Name,
         };
         return newvalue;
       });

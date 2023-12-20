@@ -1,19 +1,9 @@
 const blogModal = require("../Modal/blogModal");
-
+const HandleAddKeyindex   = require("../../ulits/randomKey");
 const blogController = {
   addblog: async (req, res) => {
-    const { Image, Title, TopicId, Description, BlogItems, LanguageOption , StatusBub } =
-      req.body;
     try {
-      const newService = await blogModal.create({
-        Image,
-        Title,
-        TopicId,
-        Description,
-        BlogItems,
-        LanguageOption,
-        StatusBub
-      });
+      const newService = await blogModal.insertMany(HandleAddKeyindex(req.body));
       res.status(200).json({ message: "Thêm thành công", data: newService });
     } catch (error) {
       res.status(500).json({ message: error.message });
@@ -46,8 +36,8 @@ const blogController = {
 
   delblog: async (req, res) => {
     try {
-      const delblog = await blogModal.deleteOne({
-        _id: req.params.BlogId,
+      const delblog = await blogModal.deleteMany({
+        KeyIndex: req.params.BlogId,
       });
       res.status(200).json({ message: "Xóa thành công", data: delblog });
     } catch (error) {

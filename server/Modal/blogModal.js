@@ -28,6 +28,10 @@ const blogSchema = mongoose.Schema(
       type: Number,
       required: true,
     },
+    KeyIndex: {
+      type: String,
+      required: true,
+    },
     LanguageOption: {
       type: String,
       required: true,
