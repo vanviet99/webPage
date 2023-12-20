@@ -8,10 +8,6 @@ const homecontentimageSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    LanguageOption: {
-      type: String,
-      required: true,
-    },
   },
   { collection: " homecontentimage" }
 );

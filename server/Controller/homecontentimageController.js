@@ -2,11 +2,10 @@ const homecontentImageModal = require("../Modal/homecontentImageModal");
 
 const homecontentImageController = {
   addhomecontentImage: async (req, res) => {
-    const { Bannerimage , LanguageOption } = req.body;
+    const { Bannerimage  } = req.body;
     try {
       const newhomecontent = await homecontentImageModal.create({
-        Bannerimage,
-        LanguageOption
+        Bannerimage
       });
 
       res
@@ -18,11 +17,10 @@ const homecontentImageController = {
   },
 
   puthomecontentImage: async (req, res) => {
-    const {Bannerimage , LanguageOption, BannerID } = req.body;
+    const {Bannerimage , BannerID } = req.body;
     try {
       const updating = await homecontentImageModal.updateOne( {_id: BannerID}, {
-        Bannerimage,
-        LanguageOption
+        Bannerimage
       });
 
       if (updating) {
@@ -39,7 +37,7 @@ const homecontentImageController = {
   },
   gethomecontentImage: async(req, res) =>{
     try {
-      let data = await homecontentImageModal.find({LanguageOption: req.params.LanguageOption})
+      let data = await homecontentImageModal.find()
       res
       .status(200)
       .json({ message: "Tthành công", data: data });
