@@ -1,5 +1,8 @@
 const blogModal = require("../Modal/blogModal");
 const HandleAddKeyindex   = require("../../ulits/randomKey");
+const topicModal = require("../Modal/topicModal");
+
+
 const blogController = {
   addblog: async (req, res) => {
     try {
@@ -52,7 +55,8 @@ const blogController = {
     let sizes = size ? size : 10;
 
     try {
-      const getblog = await blogModal
+      let topiclist = await topicModal.find();
+      let getblog = await blogModal
       .find({
         ...(TopicId && { TopicId }),
         ...(StatusBub && { StatusBub }),
@@ -61,13 +65,21 @@ const blogController = {
       .skip((pages - 1) * sizes)
       .limit(sizes);
 
+      let data = getblog.map((value) => {
+        let newvalue = {
+          ...value.toObject(),
+          TopicId: topiclist.filter((item) => item.KeyIndex == value.TopicId)?.find((value)=> value.LanguageOption === req.params.LanguageOption),
+        };
+        return newvalue;
+      });
+
       const Count =  await blogModal
       .find({
         ...(TopicId && { TopicId }),
         ...(StatusBub && { StatusBub }),
         LanguageOption: req.params.LanguageOption,
       }).count()
-      res.status(200).json({ message: "Thành công", data: getblog, Count: Count });
+      res.status(200).json({ message: "Thành công", data: data, Count: Count });
     } catch (error) {
       res.status(500).json({ message: error.message });
     }

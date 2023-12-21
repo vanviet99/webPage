@@ -1,12 +1,17 @@
 const contactfromcustomerModal = require("../Modal/contactfromcustomerModal");
-const ObjectId = require('mongoose').Types.ObjectId;
+const ObjectId = require("mongoose").Types.ObjectId;
 // contactfromcustomer
 const contactfromcustomerController = {
   addcontactfromcustomer: async (req, res) => {
-    const { ContactName, ContactPhone, ContactMail, Description , Status } = req.body;
+    const { ContactName, ContactPhone, ContactMail, Description, Status } =
+      req.body;
     try {
-      const newContact= await contactfromcustomerModal.create({
-        ContactName, ContactPhone, ContactMail, Description , Status 
+      const newContact = await contactfromcustomerModal.create({
+        ContactName,
+        ContactPhone,
+        ContactMail,
+        Description,
+        Status,
       });
       res.status(200).json({ message: "Thêm thành công", data: newContact });
     } catch (error) {
@@ -15,16 +20,18 @@ const contactfromcustomerController = {
   },
 
   putcontactfromcustomer: async (req, res) => {
-    const { Status , contactId} = req.body;
+    const { Status, contactId } = req.body;
     try {
       const newContacts = await contactfromcustomerModal.updateOne(
         { _id: contactId },
         {
-         Status,
-         updateAt: new Date()
+          Status,
+          updateAt: new Date(),
         }
       );
-      res.status(200).json({ message: "Cập nhật thành công", data: newContacts });
+      res
+        .status(200)
+        .json({ message: "Cập nhật thành công", data: newContacts });
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
@@ -32,9 +39,9 @@ const contactfromcustomerController = {
 
   delcontactfromcustomer: async (req, res) => {
     try {
-      const Contact = await contactfromcustomerModal.deleteOne(
-        { _id: req.params.contactId },
-      );
+      const Contact = await contactfromcustomerModal.deleteOne({
+        _id: req.params.contactId,
+      });
       res.status(200).json({ message: " Xóa thành công", data: Contact });
     } catch (error) {
       res.status(500).json({ message: error.message });
@@ -43,15 +50,21 @@ const contactfromcustomerController = {
 
   getcontactfromcustomer: async (req, res) => {
     try {
-        const {  ContactName, ContactPhone, ContactMail , Status} = req.body;
-        let params = {
-            ...(ContactName ? ContactName : null),
-            ...(ContactPhone ? ContactPhone : null),
-            ...(ContactMail ? ContactMail : null),
-            ...(Status ? Status : null),
+      const { ContactName, ContactPhone, ContactMail, Status, page, size } =
+        req.body;
+      let pages = page ? page : 1;
+      let sizes = size ? size : 10;
 
-        }
-      const contacts = await contactfromcustomerModal.find(params);
+      let params = {
+        ...(ContactName ? ContactName : null),
+        ...(ContactPhone ? ContactPhone : null),
+        ...(ContactMail ? ContactMail : null),
+        ...(Status ? Status : null),
+      };
+      const contacts = await contactfromcustomerModal
+        .find(params)
+        .skip((pages - 1) * sizes)
+        .limit(sizes);
       res.status(200).json({ message: "Thành công", data: contacts });
     } catch (error) {
       res.status(500).json({ message: error.message });
@@ -60,7 +73,9 @@ const contactfromcustomerController = {
 
   getcontactfromcustomerbuyId: async (req, res) => {
     try {
-      const Contact = await contactfromcustomerModal.findOne( { _id:  new ObjectId(req.params.contactId) },);
+      const Contact = await contactfromcustomerModal.findOne({
+        _id: new ObjectId(req.params.contactId),
+      });
       res.status(200).json({ message: "Thành công", data: Contact });
     } catch (error) {
       res.status(500).json({ message: error.message });
