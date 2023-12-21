@@ -72,7 +72,7 @@ const serviceController = {
       let data = getService.map((value) => {
         let newvalue = {
           ...value.toObject(),
-          TopicId: topiclist.find((item) => item._id == value.TopicId)?.Name,
+          TopicId: topiclist.filter((item) => item.KeyIndex == value.TopicId)?.find((value)=> value.LanguageOption === req.params.LanguageOption),
         };
         return newvalue;
       });
