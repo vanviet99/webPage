@@ -8,5 +8,7 @@ router.delete('/deletetopic/:topicId',middlewreController.verifyTokenAndAdmin, t
 router.patch('/patchtopic',middlewreController.verifyTokenAndAdmin, topic.patchtopic);
 router.get('/getAlltopic/:LanguageOption', topic.getAlltopic);
 router.get('/gettopicbuyId/:topicId', topic.gettopicbuyId);
+router.get('/gettopicbuykeyindex/:topicId', topic.gettopicbuykeyindex);
+
 
 module.exports = router;

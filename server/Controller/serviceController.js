@@ -100,6 +100,17 @@ const serviceController = {
       res.status(500).json({ message: error.message });
     }
   },
+
+  getservicebykeyindex: async (req, res) => {
+    try {
+      const dataService = await serviceModal.find({
+        KeyIndex: req.params.ServiceId,
+      });
+      res.status(200).json({ message: "Thành công", data: dataService });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  },
 };
 
 module.exports = serviceController;

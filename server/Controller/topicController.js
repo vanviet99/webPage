@@ -66,6 +66,19 @@ const topicController = {
       res.status(500).json({ message: error.message });
     }
   },
+
+  gettopicbuykeyindex: async (req, res) => {
+    try {
+      const getTopic = await topicModal.find({
+        KeyIndex: req.params.topicId,
+      });
+      res
+        .status(200)
+        .json({ message: "Thành công", data: getTopic });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  },
 };
 
 module.exports = topicController;
