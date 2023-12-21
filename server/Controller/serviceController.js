@@ -1,6 +1,6 @@
 const serviceModal = require("../Modal/serviceModal");
 const topicModal = require("../Modal/topicModal");
-const HandleAddKeyindex   = require("../../ulits/randomKey");
+const HandleAddKeyindex = require("../../ulits/randomKey");
 
 const serviceController = {
   addservice: async (req, res) => {
@@ -72,19 +72,23 @@ const serviceController = {
       let data = getService.map((value) => {
         let newvalue = {
           ...value.toObject(),
-          TopicId: topiclist.filter((item) => item.KeyIndex == value.TopicId)?.find((value)=> value.LanguageOption === req.params.LanguageOption),
+          TopicId: topiclist
+            .filter((item) => item.KeyIndex == value.TopicId)
+            ?.find(
+              (value) => value.LanguageOption === req.params.LanguageOption
+            ),
         };
         return newvalue;
       });
 
-
-      const Count =  await serviceModal
-      .find(
-        TopicId
-          ? { TopicId: TopicId, LanguageOption: req.params.LanguageOption }
-          : { LanguageOption: req.params.LanguageOption }
-      ).count()
-      res.status(200).json({ message: "Thành công", data: data , Count:Count });
+      const Count = await serviceModal
+        .find(
+          TopicId
+            ? { TopicId: TopicId, LanguageOption: req.params.LanguageOption }
+            : { LanguageOption: req.params.LanguageOption }
+        )
+        .count();
+      res.status(200).json({ message: "Thành công", data: data, Count: Count });
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
