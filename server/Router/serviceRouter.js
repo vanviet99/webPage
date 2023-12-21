@@ -9,5 +9,6 @@ router.patch('/patchservice',middlewreController.verifyTokenAndAdmin, service.pa
 router.delete('/delservice/:ServiceId',middlewreController.verifyTokenAndAdmin, service.delservice);
 router.post('/getAllservice/:LanguageOption', service.getAllservice);
 router.get('/getservicebyId/:ServiceId', service.getservicebyId);
+router.get('/getservicebykeyindex/:ServiceId', service.getservicebykeyindex);
 
 module.exports = router;

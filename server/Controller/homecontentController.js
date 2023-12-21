@@ -69,6 +69,16 @@ const homecontentController = {
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
+  },
+  gethomecontentbuykeyindex: async(req, res) =>{
+    try {
+      let data = await homecontentModal.find({KeyIndex: req.params.BannerID})
+      res
+      .status(200)
+      .json({ message: "Thành công", data: data });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
   }
 };
 

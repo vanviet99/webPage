@@ -8,6 +8,7 @@ router.patch('/puthomecontent',  homecontent.puthomecontent)
 router.get('/gethomecontent/:LanguageOption',homecontent.gethomecontent)
 router.delete('/delhomecontent/:BannerID',  homecontent.delhomecontent)
 router.get('/gethomecontentbuyid/:BannerID',homecontent.gethomecontentbuyid)
+router.get('/gethomecontentbuykeyindex/:BannerID',homecontent.gethomecontentbuykeyindex)
 
 
 
