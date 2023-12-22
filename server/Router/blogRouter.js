@@ -8,5 +8,6 @@ router.patch('/patchblog', middlewreController.verifyTokenAndAdmin, blog.patchbl
 router.delete('/delblog/:BlogId', middlewreController.verifyTokenAndAdmin, blog.delblog);
 router.post('/getblog/:LanguageOption', blog.getblog);
 router.get('/getblogbyId/:BlogId', blog.getblogbyId);
+router.get('/getblogbykeyindex/:BlogId', blog.getblogbykeyindex);
 
 module.exports = router;
