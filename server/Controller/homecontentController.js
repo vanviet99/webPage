@@ -71,8 +71,13 @@ const homecontentController = {
     }
   },
   gethomecontentbuykeyindex: async(req, res) =>{
+    const {LanguageOption} = req.body
+    let params = {
+      KeyIndex: req.params.BlogId,
+      ...(LanguageOption ? LanguageOption: null),
+    }
     try {
-      let data = await homecontentModal.find({KeyIndex: req.params.BannerID})
+      let data = await homecontentModal.find(params)
       res
       .status(200)
       .json({ message: "Thành công", data: data });
