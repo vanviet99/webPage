@@ -95,6 +95,16 @@ const blogController = {
       res.status(500).json({ message: error.message });
     }
   },
+  getblogbykeyindex: async (req, res) => {
+    try {
+      const dataBlog = await blogModal.find({
+        KeyIndex: req.params.BlogId,
+      });
+      res.status(200).json({ message: "Thành công", data: dataBlog });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  },
 };
 
 module.exports = blogController;
