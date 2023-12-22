@@ -4,6 +4,7 @@ const middlewreController = require("../Controller/middlewreController");
 const staff = require("../Controller/staffController");
 
 router.post("/addstaff/", staff.addstaff);
+router.get("/getStaffbuykeyindex/:staffId", staff.getStaffbuykeyindex);
 
 router.get("/getAllstaff/:LanguageOption", staff.getAllstaff);
 router.get("/getStaffbuyId/:staffId", staff.getStaffbuyId);

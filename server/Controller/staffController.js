@@ -60,7 +60,16 @@ const staffController = {
 
   getStaffbuyId: async (req, res) => {
     try {
-      const Staff = await staffModal.findOne( { KeyIndex:req.params.staffId });
+      const Staff = await staffModal.findOne( { _id: new ObjectId(req.params.staffId) });
+      res.status(200).json({ message: "Thành công", data: Staff });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  },
+
+  getStaffbuykeyindex: async (req, res) => {
+    try {
+      const Staff = await staffModal.find( { KeyIndex: req.params.staffId });
       res.status(200).json({ message: "Thành công", data: Staff });
     } catch (error) {
       res.status(500).json({ message: error.message });
