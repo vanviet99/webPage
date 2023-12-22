@@ -57,6 +57,15 @@ const contactController = {
       res.status(500).json({ message: error.message });
     }
   },
+
+  getcontactbuykeyindex: async (req, res) => {
+    try {
+      const Contact = await contactModal.find( { KeyIndex:  req.params.contactId },);
+      res.status(200).json({ message: "Thành công", data: Contact });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  },
 };
 
 module.exports = contactController;

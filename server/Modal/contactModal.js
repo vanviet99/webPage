@@ -6,19 +6,19 @@ const contactSchema = mongoose.Schema(
   {
     ImageIcon: {
         type: String,
-        required: true,
       },
       Title: {
         type: String,
         required: true,
       },
+      contactInfo:{
+        type: String,
+      },
       Address: {
         type: String,
-        required: true,
       },
       TimeAddress: {
         type: String,
-        required: true,
       },
       KeyIndex: {
         type: String,

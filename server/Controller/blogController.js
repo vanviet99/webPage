@@ -14,7 +14,7 @@ const blogController = {
   },
 
   patchblog: async (req, res) => {
-    const { Image, Title, TopicId, Description, BlogItems, LanguageOption , BlogId } =
+    const { Image, Title, TopicId, StatusBub, Description, BlogItems, LanguageOption , BlogId } =
       req.body;
     try {
       const newService = await blogModal.updateOne(
@@ -96,11 +96,32 @@ const blogController = {
     }
   },
   getblogbykeyindex: async (req, res) => {
+    const {LanguageOption} = req.body
+    let params = {
+      KeyIndex: req.params.BlogId,
+      ...(LanguageOption ? {LanguageOption:LanguageOption}: null),
+    }
     try {
-      const dataBlog = await blogModal.find({
-        KeyIndex: req.params.BlogId,
-      });
+      const dataBlog = await blogModal.find(params);
       res.status(200).json({ message: "Thành công", data: dataBlog });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  },
+
+  patchblogStatus: async (req, res) => {
+    const { StatusBub,BlogId } =
+      req.body;
+    try {
+      const newService = await blogModal.updateMany(
+        { KeyIndex: BlogId },
+        {
+            StatusBub
+        }
+      );
+      res
+        .status(200)
+        .json({ message: "Cập nhật thành công", data: newService });
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
