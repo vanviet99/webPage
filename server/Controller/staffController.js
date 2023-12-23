@@ -1,13 +1,11 @@
 const staffModal = require("../Modal/staffModal");
-const ObjectId = require('mongoose').Types.ObjectId;
-const HandleAddKeyindex   = require("../../ulits/randomKey");
+const ObjectId = require("mongoose").Types.ObjectId;
+const HandleAddKeyindex = require("../../ulits/randomKey");
 
 const staffController = {
   addstaff: async (req, res) => {
     try {
-      const newStaff = await staffModal.insertMany(
-        HandleAddKeyindex(req.body)
-      );
+      const newStaff = await staffModal.insertMany(HandleAddKeyindex(req.body));
       res.status(200).json({ message: "Thêm thành công", data: newStaff });
     } catch (error) {
       res.status(500).json({ message: error.message });
@@ -15,7 +13,8 @@ const staffController = {
   },
 
   putstaff: async (req, res) => {
-    const { Image, FullName, Role, Description, staffId, LanguageOption } = req.body;
+    const { Image, FullName, Role, Description, staffId, LanguageOption } =
+      req.body;
     try {
       const newStaff = await staffModal.updateOne(
         { _id: staffId },
@@ -24,7 +23,7 @@ const staffController = {
           FullName,
           Role,
           Description,
-          LanguageOption
+          LanguageOption,
         }
       );
       res.status(200).json({ message: "Cập nhật thành công", data: newStaff });
@@ -35,9 +34,9 @@ const staffController = {
 
   delstaff: async (req, res) => {
     try {
-      const Staff = await staffModal.deleteMany(
-        { KeyIndex: req.params.staffId },
-      );
+      const Staff = await staffModal.deleteMany({
+        KeyIndex: req.params.staffId,
+      });
       res.status(200).json({ message: " Xóa thành công", data: Staff });
     } catch (error) {
       res.status(500).json({ message: error.message });
@@ -45,14 +44,19 @@ const staffController = {
   },
 
   getAllstaff: async (req, res) => {
-    const {page, size} = req.body
-
-    let pages = page ? page : 1;
-    let sizes = size ? size : 10;
+    const { page, size } = req.body;
 
     try {
-      const Staff = await staffModal.find({LanguageOption: req.params.LanguageOption}).skip((pages - 1) * sizes).limit(sizes);
-      res.status(200).json({ message: "Thành công", data: Staff });
+      const Staff = await staffModal
+        .find({ LanguageOption: req.params.LanguageOption })
+        .skip((page - 1) * size)
+        .limit(size);
+      const count = await staffModal
+        .find({ LanguageOption: req.params.LanguageOption })
+        .count();
+      res
+        .status(200)
+        .json({ message: "Thành công", data: Staff, count: count });
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
@@ -60,7 +64,9 @@ const staffController = {
 
   getStaffbuyId: async (req, res) => {
     try {
-      const Staff = await staffModal.findOne( { _id: new ObjectId(req.params.staffId) });
+      const Staff = await staffModal.findOne({
+        _id: new ObjectId(req.params.staffId),
+      });
       res.status(200).json({ message: "Thành công", data: Staff });
     } catch (error) {
       res.status(500).json({ message: error.message });
@@ -69,7 +75,7 @@ const staffController = {
 
   getStaffbuykeyindex: async (req, res) => {
     try {
-      const Staff = await staffModal.find( { KeyIndex: req.params.staffId });
+      const Staff = await staffModal.find({ KeyIndex: req.params.staffId });
       res.status(200).json({ message: "Thành công", data: Staff });
     } catch (error) {
       res.status(500).json({ message: error.message });

@@ -80,12 +80,12 @@ const authController = {
             );
             if (!user) {
                 return res
-                    .status(200)
-                    .json({ message: "Tên người dùng không tồn tại" });
+                    .status(401)
+                    .json({ status: 401, message: "Tên người dùng không tồn tại" });
             }
             const passwordMatch = await bcrypt.compare(password, user.password);
             if (!passwordMatch) {
-                return res.status(200).json({ message: "Mật khẩu không đúng" });
+                return res.status(200).json({ status: 401, message: "Mật khẩu không đúng" });
             }
             const token = authController.generateToken({
                 userId: user._id,
@@ -99,8 +99,9 @@ const authController = {
                 { refreshToken: token.refreshToken }
             );
             res
-                .status(200)
+                .status(401)
                 .json({
+                    status: 200,
                     message: "Đăng nhập thành công", data: {
                         ...token,
                         user
