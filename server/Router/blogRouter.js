@@ -3,7 +3,7 @@ const router = express.Router();
 const middlewreController = require('../Controller/middlewreController')
 const blog =require('../Controller/blogController')
 
-router.post('/addblog',  middlewreController.verifyTokenAndAdmin,  blog.addblog);
+router.post('/addblog',  middlewreController.verifyTokenAndAdmin, blog.addblog);
 router.patch('/patchblog', middlewreController.verifyTokenAndAdmin, blog.patchblog);
 router.delete('/delblog/:BlogId', middlewreController.verifyTokenAndAdmin, blog.delblog);
 router.post('/getblog/:LanguageOption', blog.getblog);

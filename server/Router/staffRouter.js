@@ -6,8 +6,8 @@ const staff = require("../Controller/staffController");
 router.post("/addstaff/", staff.addstaff);
 router.get("/getStaffbuykeyindex/:staffId", staff.getStaffbuykeyindex);
 
-router.get("/getAllstaff/:LanguageOption", staff.getAllstaff);
-router.get("/getStaffbuyId/:staffId", staff.getStaffbuyId);
+router.post("/getAllstaff/:LanguageOption", staff.getAllstaff);
+router.post("/getStaffbuyId/:staffId", staff.getStaffbuyId);
 router.patch(
   "/putstaff",
   middlewreController.verifyTokenAndAdmin,

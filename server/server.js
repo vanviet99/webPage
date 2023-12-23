@@ -20,6 +20,8 @@ const contactRouter = require('./Router/contactRouter');
 const bannerImageRouter = require('./Router/bannerImageRouter');
 const contactfromCustomerRouter = require('./Router/contactfromCustomerRouter');
 const homecontentimageRouter = require('./Router/homecontentimageRouter');
+const contactinfoRouter = require('./Router/contactinfoRouter');
+
 
 
 
@@ -33,6 +35,7 @@ app.use(cors());
 const PORT = process.env.PORT || 5000;
 console.log(PORT, 'PORT');
 
+app.use('/api/v1/contactinfo', contactinfoRouter);
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/user', userRouter);
 app.use('/api/v1/uploads', uploadRouter);
