@@ -4,8 +4,19 @@ const HandleAddKeyindex = require("../../ulits/randomKey");
 
 const staffController = {
   addstaff: async (req, res) => {
+
+    let data = req.body;
+
+    if (req.file) {
+      const filePath = req.file.path;
+      const fileUrl = `http://localhost:${
+        process.env.PORT
+      }/uploads/${path.basename(filePath)}`;
+      data.Image = fileUrl;
+    }
+    
     try {
-      const newStaff = await staffModal.insertMany(HandleAddKeyindex(req.body));
+      const newStaff = await staffModal.insertMany(HandleAddKeyindex(data));
       res.status(200).json({ message: "Thêm thành công", data: newStaff });
     } catch (error) {
       res.status(500).json({ message: error.message });
@@ -16,6 +27,16 @@ const staffController = {
     const { Image, FullName, Role, Description, staffId, LanguageOption } =
       req.body;
     try {
+
+      let Image = "";
+
+      if (req.file) {
+        const filePath = req.file.path;
+        const fileUrl = `http://localhost:${
+          process.env.PORT
+        }/uploads/${path.basename(filePath)}`;
+        Image = fileUrl;
+      }
       const newStaff = await staffModal.updateOne(
         { _id: staffId },
         {

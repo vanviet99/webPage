@@ -2,11 +2,18 @@ const banneimglistModal = require("../Modal/banneimglistModal");
 
 const bannerImageController = {
   addbannerImage: async (req, res) => {
-    const { ImageList} = req.body;
-    console.log(ImageList, "ImageList");
+    let ImageList = "";
+
+    if (req.file) {
+      const filePath = req.file.path;
+      const fileUrl = `http://localhost:${
+        process.env.PORT
+      }/uploads/${path.basename(filePath)}`;
+      ImageList = fileUrl;
+    }
     try {
-      const newContact= await banneimglistModal.create({
-        ImageList
+      const newContact = await banneimglistModal.create({
+        ImageList,
       });
       res.status(200).json({ message: "Thêm thành công", data: newContact });
     } catch (error) {
@@ -15,12 +22,19 @@ const bannerImageController = {
   },
 
   putbannerImage: async (req, res) => {
-    const { ImageList } = req.body;
+    let ImageList = "";
+    if (req.file) {
+      const filePath = req.file.path;
+      const fileUrl = `http://localhost:${
+        process.env.PORT
+      }/uploads/${path.basename(filePath)}`;
+      ImageList = fileUrl;
+    }
     try {
-      const newContacts = await banneimglistModal.updateOne(
-      {ImageList}
-      );
-      res.status(200).json({ message: "Cập nhật thành công", data: newContacts });
+      const newContacts = await banneimglistModal.updateOne({ ImageList });
+      res
+        .status(200)
+        .json({ message: "Cập nhật thành công", data: newContacts });
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
@@ -28,13 +42,12 @@ const bannerImageController = {
 
   delAllbannerImage: async (req, res) => {
     try {
-        const result = await banneimglistModal.deleteMany({});
+      const result = await banneimglistModal.deleteMany({});
       res.status(200).json({ message: "Xóa thành công", data: result });
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
   },
-
 
   getAllbannerImage: async (req, res) => {
     try {
@@ -47,4 +60,3 @@ const bannerImageController = {
 };
 
 module.exports = bannerImageController;
-

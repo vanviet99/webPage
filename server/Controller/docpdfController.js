@@ -6,11 +6,15 @@ const customerController = {
     let newData = {};
     try {
       if (req.file) {
-        const filePath = req.file.path;
-        const fileUrl = `http://localhost:${
-          process.env.PORT
-        }/uploads/${path.basename(filePath)}`;
+
+        const filePath = req.file.path
+
+        const name = req.file.originalname
+        console.log("name", name)
+        const fileUrl = `http://localhost:${process.env.PORT
+          }/uploads/${path.basename(filePath)}`;
         newData.fileurl = fileUrl;
+        newData.name = name
       }
       const addfile = await docpdfModal.create(newData);
       res.status(200).json({ message: "Thêm thành công", data: addfile });
@@ -21,13 +25,15 @@ const customerController = {
 
   patchdocpdf: async (req, res) => {
     const { fileId } = req.params;
+    let newData = {};
     try {
       if (req.file) {
         const filePath = req.file.path;
-        const fileUrl = `http://localhost:${
-          process.env.PORT
-        }/uploads/${path.basename(filePath)}`;
+        const name = req.file.originalname;
+        const fileUrl = `http://localhost:${process.env.PORT
+          }/uploads/${path.basename(filePath)}`;
         newData.fileurl = fileUrl;
+        newData.name = name
       }
       const updateFile = await docpdfModal.updateOne({ _id: fileId }, newData);
       res

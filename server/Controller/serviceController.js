@@ -4,9 +4,17 @@ const HandleAddKeyindex = require("../../ulits/randomKey");
 
 const serviceController = {
   addservice: async (req, res) => {
+    let data = req.body
+    if (req.file) {
+      const filePath = req.file.path;
+      const fileUrl = `http://localhost:${
+        process.env.PORT
+      }/uploads/${path.basename(filePath)}`;
+      data.Image = fileUrl;
+    }
     try {
       const newService = await serviceModal.insertMany(
-        HandleAddKeyindex(req.body)
+        HandleAddKeyindex(data)
       );
       res.status(200).json({ message: "Thêm thành công", data: newService });
     } catch (error) {
@@ -15,14 +23,22 @@ const serviceController = {
   },
 
   patchservice: async (req, res) => {
+    let Image = ""
     const {
-      Image,
       ServiceName,
       TopicId,
       Description,
       LanguageOption,
       ServiceId,
     } = req.body;
+
+    if (req.file) {
+      const filePath = req.file.path;
+      const fileUrl = `http://localhost:${
+        process.env.PORT
+      }/uploads/${path.basename(filePath)}`;
+      Image = fileUrl;
+    }
     try {
       const newService = await serviceModal.updateOne(
         { _id: ServiceId },
