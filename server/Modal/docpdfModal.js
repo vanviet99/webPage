@@ -7,6 +7,9 @@ const docpdfSchema = mongoose.Schema(
     fileurl: {
       type: String,
     },
+    name: {
+      type: String,
+    }
   },
   { collection: " docpdf" }
 );

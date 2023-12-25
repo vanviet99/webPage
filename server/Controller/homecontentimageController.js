@@ -2,7 +2,16 @@ const homecontentImageModal = require("../Modal/homecontentImageModal");
 
 const homecontentImageController = {
   addhomecontentImage: async (req, res) => {
-    const { Bannerimage  } = req.body;
+
+    let Bannerimage = "";
+
+    if (req.file) {
+      const filePath = req.file.path;
+      const fileUrl = `http://localhost:${
+        process.env.PORT
+      }/uploads/${path.basename(filePath)}`;
+      Bannerimage = fileUrl;
+    }
     try {
       const newhomecontent = await homecontentImageModal.create({
         Bannerimage
@@ -17,7 +26,17 @@ const homecontentImageController = {
   },
 
   puthomecontentImage: async (req, res) => {
-    const {Bannerimage , BannerID } = req.body;
+    const {  BannerID } = req.body;
+
+    let Bannerimage = "";
+
+    if (req.file) {
+      const filePath = req.file.path;
+      const fileUrl = `http://localhost:${
+        process.env.PORT
+      }/uploads/${path.basename(filePath)}`;
+      Bannerimage = fileUrl;
+    }
     try {
       const updating = await homecontentImageModal.updateOne( {_id: BannerID}, {
         Bannerimage
