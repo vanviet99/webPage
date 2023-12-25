@@ -99,7 +99,7 @@ const authController = {
                 { refreshToken: token.refreshToken }
             );
             res
-                .status(401)
+                .status(200)
                 .json({
                     status: 200,
                     message: "Đăng nhập thành công", data: {
