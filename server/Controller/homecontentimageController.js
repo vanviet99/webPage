@@ -1,4 +1,5 @@
 const homecontentImageModal = require("../Modal/homecontentImageModal");
+const path = require("path");
 
 const homecontentImageController = {
   addhomecontentImage: async (req, res) => {
