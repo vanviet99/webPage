@@ -6,15 +6,7 @@ const path = require("path");
 const staffController = {
   addstaff: async (req, res) => {
 
-    let data = req.body;
-
-    if (req.file) {
-      const filePath = req.file.path;
-      const fileUrl = `http://localhost:${
-        process.env.PORT
-      }/uploads/${path.basename(filePath)}`;
-      data.Image = fileUrl;
-    }
+    let data = req.body
     
     try {
       const newStaff = await staffModal.insertMany(HandleAddKeyindex(data));
@@ -28,16 +20,6 @@ const staffController = {
     const { Image, FullName, Role, Description, staffId, LanguageOption } =
       req.body;
     try {
-
-      let Image = "";
-
-      if (req.file) {
-        const filePath = req.file.path;
-        const fileUrl = `http://localhost:${
-          process.env.PORT
-        }/uploads/${path.basename(filePath)}`;
-        Image = fileUrl;
-      }
       const newStaff = await staffModal.updateOne(
         { _id: staffId },
         {

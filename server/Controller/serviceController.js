@@ -6,13 +6,6 @@ const path = require("path");
 const serviceController = {
   addservice: async (req, res) => {
     let data = req.body
-    if (req.file) {
-      const filePath = req.file.path;
-      const fileUrl = `http://localhost:${
-        process.env.PORT
-      }/uploads/${path.basename(filePath)}`;
-      data.Image = fileUrl;
-    }
     try {
       const newService = await serviceModal.insertMany(
         HandleAddKeyindex(data)
@@ -24,22 +17,14 @@ const serviceController = {
   },
 
   patchservice: async (req, res) => {
-    let Image = ""
     const {
+      Image,
       ServiceName,
       TopicId,
       Description,
       LanguageOption,
       ServiceId,
     } = req.body;
-
-    if (req.file) {
-      const filePath = req.file.path;
-      const fileUrl = `http://localhost:${
-        process.env.PORT
-      }/uploads/${path.basename(filePath)}`;
-      Image = fileUrl;
-    }
     try {
       const newService = await serviceModal.updateOne(
         { _id: ServiceId },

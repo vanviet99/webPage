@@ -4,8 +4,8 @@ const middlewreController = require('../Controller/middlewreController')
 const blog =require('../Controller/blogController')
 const { upload } = require('../upload.config');
 
-router.post('/addblog',  middlewreController.verifyTokenAndAdmin,  upload.single('file'), blog.addblog);
-router.patch('/patchblog', middlewreController.verifyTokenAndAdmin,  upload.single('file'), blog.patchblog);
+router.post('/addblog',  middlewreController.verifyTokenAndAdmin,  blog.addblog);
+router.patch('/patchblog', middlewreController.verifyTokenAndAdmin,  blog.patchblog);
 router.delete('/delblog/:BlogId', middlewreController.verifyTokenAndAdmin, blog.delblog);
 router.post('/getblog/:LanguageOption', blog.getblog);
 router.get('/getblogbyId/:BlogId', blog.getblogbyId);

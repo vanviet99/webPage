@@ -6,13 +6,6 @@ const path = require("path");
 const blogController = {
   addblog: async (req, res) => {
     let data = req.body;
-    if (req.file) {
-      const filePath = req.file.path;
-      const fileUrl = `http://localhost:${
-        process.env.PORT
-      }/uploads/${path.basename(filePath)}`;
-      data.Image = fileUrl;
-    }
     try {
       const newService = await blogModal.insertMany(HandleAddKeyindex(data));
       res.status(200).json({ message: "Thêm thành công", data: newService });
@@ -22,7 +15,7 @@ const blogController = {
   },
 
   patchblog: async (req, res) => {
-    let {
+    const {
       Image,
       Title,
       TopicId,
@@ -33,13 +26,6 @@ const blogController = {
       BlogId,
     } = req.body;
     try {
-      if (req.file) {
-        const filePath = req.file.path;
-        const fileUrl = `http://localhost:${
-          process.env.PORT
-        }/uploads/${path.basename(filePath)}`;
-        Image = fileUrl;
-      }
       const newService = await blogModal.updateOne(
         { _id: BlogId },
         {
