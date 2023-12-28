@@ -1,5 +1,5 @@
 const topicModal = require("../Modal/topicModal");
-const HandleAddKeyindex   = require("../../ulits/randomKey");
+const HandleAddKeyindex   = require("../ulits/randomKey");
 
 const topicController = {
   addtopic: async (req, res) => {

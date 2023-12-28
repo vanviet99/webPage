@@ -1,6 +1,6 @@
 const contactModal = require("../Modal/contactModal");
 const ObjectId = require('mongoose').Types.ObjectId;
-const HandleAddKeyindex   = require("../../ulits/randomKey");
+const HandleAddKeyindex   = require("../ulits/randomKey");
 
 const contactController = {
   addcontact: async (req, res) => {
