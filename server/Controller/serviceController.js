@@ -1,6 +1,6 @@
 const serviceModal = require("../Modal/serviceModal");
 const topicModal = require("../Modal/topicModal");
-const HandleAddKeyindex = require("../../ulits/randomKey");
+const HandleAddKeyindex = require("../ulits/randomKey");
 const path = require("path");
 
 const serviceController = {

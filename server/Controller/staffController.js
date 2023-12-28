@@ -1,6 +1,6 @@
 const staffModal = require("../Modal/staffModal");
 const ObjectId = require("mongoose").Types.ObjectId;
-const HandleAddKeyindex = require("../../ulits/randomKey");
+const HandleAddKeyindex = require("../ulits/randomKey");
 const path = require("path");
 
 const staffController = {

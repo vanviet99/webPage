@@ -1,5 +1,5 @@
 const homecontentModal = require("../Modal/homecontentModal");
-const HandleAddKeyindex   = require("../../ulits/randomKey");
+const HandleAddKeyindex   = require("../ulits/randomKey");
 
 const homecontentController = {
   addhomecontent: async (req, res) => {
