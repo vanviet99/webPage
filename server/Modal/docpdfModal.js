@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-mongoose.connect("mongodb://127.0.0.1:27017/Camera");
+mongoose.connect(process.env.DATA_BASE_URL + process.env.REPOSITORY);
 
 const docpdfSchema = mongoose.Schema(
   {
